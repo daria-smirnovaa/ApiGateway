@@ -28,7 +28,7 @@ spring:
         - id: order-service
           uri: http://order-service:8082
           predicates:
-            - Path=/order/**
+            - Path=/orders/**
 
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
