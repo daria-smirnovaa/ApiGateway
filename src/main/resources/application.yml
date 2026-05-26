@@ -4,12 +4,18 @@ spring:
   cloud:
     gateway:
       routes:
+        - id: auth-service-login
+          uri: http://auth-service:8081
+          predicates:
+            - Path=/authorization/login
+          methods:
+            - POST
+
         - id: user-service
           uri: http://user-service:8080
           predicates:
             - Path=/users/**
           filters:
-            - name: JwtAuthFilter
             - name: CircuitBreaker
               args:
                 name: userService
@@ -29,6 +35,11 @@ spring:
           uri: http://order-service:8082
           predicates:
             - Path=/orders/**
+
+        - id: payment-service
+          uri: http://payment-service:8084
+          predicates:
+            - Path=/payments/**
 
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
@@ -57,3 +68,5 @@ service:
     url: http://auth-service:8081
   order:
     url: http://order-service:8082
+  payment:
+    url: http://order-service:8084
