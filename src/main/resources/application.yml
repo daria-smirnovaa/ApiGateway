@@ -69,4 +69,4 @@ service:
   order:
     url: http://order-service:8082
   payment:
-    url: http://order-service:8084
+    url: http://payment-service:8084
